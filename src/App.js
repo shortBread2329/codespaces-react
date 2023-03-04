@@ -1,15 +1,15 @@
 
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import ReactMarkdown from 'react-markdown';
 
 const App = (props) => {
-  const [memo, setMemo] = useState("tomato");
+  const [memo, setMemo] = useState("");
 
   const changeMemo = (e) => setMemo(e.target.value);
 
   return(
     <div>
-      <div>{memo}</div>
+      <ReactMarkdown className="markdown-body" children={memo} />
       <textarea onChange={changeMemo} val={memo}></textarea>
     </div>
   )
