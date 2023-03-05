@@ -1,6 +1,12 @@
 
 import React, { useState } from "react";
 import ReactMarkdown from 'react-markdown';
+// マークダウンの中に直接書かれた HTML を出力
+import rehypeRaw from "rehype-raw";
+//  <script> タグを除去
+import rehypeSanitize from "rehype-sanitize";
+// Table, checkbox も変換される
+import remarkGfm from "remark-gfm";
 
 const App = (props) => {
   const [memo, setMemo] = useState("");
@@ -9,7 +15,12 @@ const App = (props) => {
 
   return(
     <div>
-      <ReactMarkdown className="markdown-body" children={memo} />
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw, rehypeSanitize]}
+        remarkPlugins={[remarkGfm]}
+      >
+        {memo}
+      </ReactMarkdown>
       <textarea onChange={changeMemo} val={memo}></textarea>
     </div>
   )
